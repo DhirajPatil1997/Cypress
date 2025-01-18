@@ -1,0 +1,36 @@
+name: Cypress Automation
+
+on:
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+  push: # Automatically triggers on pushes to the repository
+    branches:
+      - main # Replace with your branch name if different
+
+jobs:
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Use the version compatible with Cypress
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run the specific Cypress test
+      - name: Run Specific Cypress Test
+        run: npx cypress run --spec Tests/Test1.js
+
+      - name: Save Cypress artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-results
+          path: cypress/results/
