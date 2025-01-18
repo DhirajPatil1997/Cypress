@@ -32,3 +32,10 @@ jobs:
       # Step 5: Run the specific Cypress test
       - name: Run Specific Cypress Test
         run: npx cypress run --spec cypress/e2e/Tests/Test1.js
+
+      - name: Save Cypress artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-results
+          path: cypress/results/
+
