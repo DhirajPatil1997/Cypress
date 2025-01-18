@@ -2,6 +2,12 @@ name: Cypress Automation
 
 on:
   workflow_dispatch: # Allows manual triggering from the GitHub UI
+    inputs:
+      file_name:
+        description: 'Specify the test file name (e.g., Test1.js)'
+        required: true
+        default: 'Test1.js'     
+
   push: # Automatically triggers on pushes to the repository
     branches:
       - main # Replace with your branch name if different
@@ -31,7 +37,7 @@ jobs:
 
       # Step 5: Run the specific Cypress test
       - name: Run Specific Cypress Test
-        run: npx cypress run --spec cypress/e2e/Tests/Test1.js
+        run: npx cypress run --spec cypress/e2e/Tests/${{ github.event.inputs.file_name }}
 
       - name: Save Cypress artifacts
         uses: actions/upload-artifact@v3
