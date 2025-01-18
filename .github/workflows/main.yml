@@ -25,12 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run the specific Cypress test
+      # Step 4: Install Cypress Binary
+      - name: Install Cypress
+        run: npx cypress install
+
+      # Step 5: Run the specific Cypress test
       - name: Run Specific Cypress Test
         run: npx cypress run --spec Tests/Test1.js
-
-      - name: Save Cypress artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-results
-          path: cypress/results/
